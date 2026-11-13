@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout & Pembayaran</title>
+  <link rel="stylesheet" href="bayar-style.css">
+</head>
+<body>
+
+  <div class="container-bayar">
+    <h2>Checkout Pesanan</h2>
+
+    <!-- Ringkasan Daftar Produk dari Keranjang -->
+    <div id="daftar-produk-bayar" class="list-produk"></div>
+
+    <!-- Subtotal Belanja -->
+    <div class="ringkasan-awal">
+      <span>Subtotal Belanja</span>
+      <strong>Rp <span id="tampil-subtotal">0</span></strong>
+    </div>
+
+    <!-- Form Data Pembeli -->
+    <form id="formPembayaran" novalidate>
+      <div class="section-box">
+        <h4>Data Pembeli:</h4>
+        <div class="form-group">
+          <label for="namaPembeli">Nama Lengkap *</label>
+          <input type="text" id="namaPembeli" placeholder="Masukkan nama Anda">
+          <small class="pesan-error" id="err-nama">⚠️ Nama lengkap wajib diisi!</small>
+        </div>
+
+        <div class="form-group">
+          <label for="waPembeli">Nomor WhatsApp *</label>
+          <input type="tel" id="waPembeli" placeholder="Contoh: 081234567890">
+          <small class="pesan-error" id="err-wa">⚠️ Nomor WhatsApp wajib diisi!</small>
+        </div>
+      </div>
+
+      <!-- Pilihan Metode Pengiriman -->
+      <div class="section-box">
+        <h4>Pilih Metode Pengiriman:</h4>
+
+        <!-- Opsi 1: Diantar Kurir -->
+        <label class="card-opsi aktif" id="card-antar">
+          <div class="opsi-header">
+            <input type="radio" name="pengiriman" value="antar" checked onchange="ubahOpsiPengiriman()">
+            <strong>Diantar Kurir (Area Samarinda)</strong>
+          </div>
+
+          <div id="detail-diantar" class="detail-box">
+            <!-- Input Alamat Khusus saat Diantar -->
+            <div class="form-group">
+              <label for="jalanUtama">Nama Jalan Utama / Kelurahan *</label>
+              <div class="input-dengan-tombol">
+                <input type="text" id="jalanUtama" placeholder="Contoh: Jl. Lambung Mangkurat">
+                <button type="button" onclick="hitungOngkirOtomatis()" class="btn-cek-ongkir">Cek Ongkir</button>
+              </div>
+              <small class="pesan-error" id="err-jalan">⚠️ Nama jalan utama wajib diisi!</small>
+            </div>
+
+            <div class="form-group">
+              <label for="detailAlamat">Detail Gang, Nomor Rumah & Patokan *</label>
+              <input type="text" id="detailAlamat" placeholder="Contoh: Gang Bunga Putih No. 7 (Pagar Hitam)">
+              <small class="pesan-error" id="err-detail">⚠️ Detail gang / nomor rumah wajib diisi!</small>
+            </div>
+
+            <p id="info-jarak" class="teks-jarak">Masukkan jalan utama lalu klik "Cek Ongkir".</p>
+
+            <div class="baris-biaya">
+              <span>Ongkos Kirim</span>
+              <span>Rp <span id="tampil-ongkir">0</span></span>
+            </div>
+            <div class="baris-biaya total-highlight">
+              <span>Total Tagihan</span>
+              <strong>Rp <span id="tampil-total-antar">0</span></strong>
+            </div>
+          </div>
+        </label>
+
+        <!-- Opsi 2: Ambil Sendiri -->
+        <label class="card-opsi" id="card-ambil">
+          <div class="opsi-header">
+            <input type="radio" name="pengiriman" value="ambil" onchange="ubahOpsiPengiriman()">
+            <strong>Ambil Sendiri / Ketemuan (Gratis Ongkir)</strong>
+          </div>
+
+          <div id="detail-ambil" class="detail-box tersembunyi">
+            <p class="teks-info-ambil">Titik lokasi pengambilan akan dikirimkan via WhatsApp setelah pesanan dikonfirmasi.</p>
+            <div class="baris-biaya">
+              <span>Ongkos Kirim</span>
+              <span>Rp 0</span>
+            </div>
+            <div class="baris-biaya total-highlight">
+              <span>Total Tagihan</span>
+              <strong>Rp <span id="tampil-total-ambil">0</span></strong>
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <!-- Pilihan Metode Pembayaran -->
+      <div class="section-box" id="section-pembayaran">
+        <h4>Pilih Metode Pembayaran:</h4>
+        <label class="radio-sederhana">
+          <input type="radio" name="metode" value="QRIS" checked onchange="ubahMetodeBayar()"> 
+          <strong>QRIS (Dana, OVO, GoPay, ShopeePay, M-Banking)</strong>
+        </label>
+        <div id="box-qris" class="qris-container">
+          <p class="teks-qris">Silakan scan kode QRIS di bawah ini sesuai <strong>Total Tagihan</strong>, lalu kirim bukti pembayarannya di WhatsApp:</p>
+          <img src="qris.jpg" alt="Kode QRIS Pembayaran" class="gambar-qris">
+        </div>
+        <label class="radio-sederhana">
+          <input type="radio" name="metode" value="Bayar di Tempat (COD)"> Bayar di Tempat (COD)
+        </label>
+      </div>
+
+      <button type="submit" class="btn-bayar-utama">Konfirmasi & Pesan via WhatsApp</button>
+    </form>
+  </div>
+
+  <script src="bayar-script.js"></script>
+</body>
+</html>

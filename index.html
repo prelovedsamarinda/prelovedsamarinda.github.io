@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Preloved Samarinda</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,700;1,100&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="style.css" />
+    <link class="icon" rel="shortcut icon" href="preloved.jpg" />
+    <!-- Library Resmi Midtrans Snap (Mode Sandbox) -->
+    <script
+      type="text/javascript"
+      src="https://midtrans.com"
+      data-client-key="Mid-client-9wNxUwiMZ5_OGxip"
+    ></script>
+  </head>
+  <body>
+    <!-- navbar start -->
+    <nav class="navbar">
+      <a href="#" class="navbar-logo">Preloved<span>Samarinda</span></a>
+
+      <div class="navbar-utama1">
+        <!-- <!-- <a class="navbar-utama" href="#Home">Home</a> -->
+
+        <!-- <a class="navbar-utama" href="#about">Tentang Kami</a> -->
+
+        <!-- <!-- <a class="navbar-utama" href="Produk.html">Produk</a> -->
+
+        <!-- <a class="navbar-utama" href="#Kontak">Kontak</a>  -->
+      </div>
+
+      <div class="search-container">
+        <div class="search-box">
+          <input
+            type="search"
+            id="myInput"
+            class="search-input"
+            placeholder="Cari baju, sepatu, topi..."
+            autocomplete="off"
+          />
+          <button type="button" id="myBtn" class="search-btn">Cari</button>
+        </div>
+
+        <!-- Wadah untuk memunculkan rekomendasi -->
+        <div id="rekomendasi-box" class="autocomplete-suggestions"></div>
+      </div>
+
+      <div class="navbar-extra">
+        <a href="#" id="search"><svg data-feather="search"></svg></a>
+
+        <div class="shopping-cart-container">
+          <button
+            type="button"
+            id="shopping-cart"
+            onclick="toggleKeranjang()"
+            class="button-icon-cart"
+          >
+            <i class="cart-button" data-feather="shopping-cart"></i>
+            <span id="jumlah-notif" class="badge-notif">0</span>
+          </button>
+
+          <!-- DAFTAR BELANJAAN MELAYANG (Pindahkan ke sini) -->
+          <div id="shopping-cart-box" class="shopping-cart-box">
+            <h3>Keranjang Belanja</h3>
+            <ul id="daftar-keranjang">
+              <li class="keranjang-kosong">Keranjang masih kosong.</li>
+            </ul>
+            <div class="cart-total">
+              Total: Rp <span id="total-harga">0</span>
+            </div>
+            <a
+              href="bayar.html"
+              type="button"
+              id="pay-button"
+              class="btn-checkout1"
+            >
+              Bayar
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+      
+    </nav>
+
+    <!-- navbar end -->
+
+    <!-- hero section start -->
+
+    <section class="hero" id="Home">
+      <main class="konten">
+        <h1>Selamat Datang di <br /><span>Preloved</span> Samarinda</h1>
+        <p>
+          Kami melayani jual/beli baju bekas berkualitas.kami ga cuma itu aja,
+          kami juga melayani tipjul.
+        </p>
+        <a href="#" class="cta">Beli Sekarang</a>
+      </main>
+    </section>
+
+    <!-- hero section end  -->
+
+    <section class="rekomendasi-section">
+  <div class="rekomendasi-header">
+    <h2>Rekomendasi Pilihan 🔥</h2>
+    <div class="slider-nav">
+      <button onclick="geserKatalog(-1)">❮</button>
+      <button onclick="geserKatalog(1)">❯</button>
+    </div>
+  </div>
+
+  <div class="katalog-slider" id="katalogSlider">
+    <!-- Copy-paste kartu produk lu ke sini -->
+     <div class="produk-card slide-item preloved-style">
+  <div class="produk-image">
+    <span class="badge-nego">Bisa Nego</span>
+    <span class="badge-keranjang">Di Keranjang</span>
+    
+    <!-- Klik foto langsung buka halaman detail -->
+    <a href="detail.html?nama=Baju Kemeja Pria Keren&harga=75000&ukuran=XL&kondisi=9.5/10">
+      <img src="preloved.jpg" alt="Baju Kemeja Pria Keren" />
+    </a>
+
+    <!-- Ikon keranjang melayang di pojok kanan bawah foto -->
+    <button
+      onclick="tambahKeKeranjang('Baju Kemeja Pria Keren', 75000, -0.4794345893937245, 117.15853327078588, this)"
+      class="btn-keranjang-float"
+      title="Tambah ke Keranjang"
+    >
+      <i data-feather="shopping-cart"></i>
+    </button>
+  </div>
+
+  <div class="produk-info">
+    <a href="detail.html?nama=Baju Kemeja Pria Keren&harga=75000&ukuran=XL&kondisi=9.5/10" class="judul-link">
+      <h3>Baju Kemeja Pria Keren</h3>
+    </a>
+    <p class="meta-produk">XL &middot; 9.5/10</p>
+    <p class="harga">Rp 75.000</p>
+    
+    <a href="https://whatsapp.com" target="_blank" class="btn-nego-clean">Nego</a>
+  </div>
+</div>
+
+<div class="produk-card slide-item preloved-style">
+  <div class="produk-image">
+    <span class="badge-nego">Bisa Nego</span>
+    <span class="badge-keranjang">Di Keranjang</span>
+    
+    <!-- Klik foto langsung buka halaman detail -->
+    <a href="detail.html?nama=Baju Kemeja Pria Keren&harga=75000&ukuran=XL&kondisi=9.5/10">
+      <img src="preloved.jpg" alt="Baju Kemeja Pria Keren" />
+    </a>
+
+    <!-- Ikon keranjang melayang di pojok kanan bawah foto -->
+    <button
+      onclick="tambahKeKeranjang('Baju Kemeja Pria Keren', 75000, -0.4794345893937245, 117.15853327078588, this)"
+      class="btn-keranjang-float"
+      title="Tambah ke Keranjang"
+    >
+      <i data-feather="shopping-cart"></i>
+    </button>
+  </div>
+
+  <div class="produk-info">
+    <a href="detail.html?nama=Baju Kemeja Pria Keren&harga=75000&ukuran=XL&kondisi=9.5/10" class="judul-link">
+      <h3>Baju Kemeja Pria Keren</h3>
+    </a>
+    <p class="meta-produk">XL &middot; 9.5/10</p>
+    <p class="harga">Rp 75.000</p>
+    
+    <a href="https://whatsapp.com" target="_blank" class="btn-nego-clean">Nego</a>
+  </div>
+</div>
+
+
+<div class="produk-card slide-item preloved-style">
+  <div class="produk-image">
+    <span class="badge-nego">Bisa Nego</span>
+    <span class="badge-keranjang">Di Keranjang</span>
+    
+    <!-- Klik foto langsung buka halaman detail -->
+    <a href="detail.html?nama=Baju Kemeja Pria Keren&harga=75000&ukuran=XL&kondisi=9.5/10">
+      <img src="preloved.jpg" alt="Baju Kemeja Pria Keren" />
+    </a>
+
+    <!-- Ikon keranjang melayang di pojok kanan bawah foto -->
+    <button
+      onclick="tambahKeKeranjang('Baju Kemeja Pria Keren', 75000, -0.4794345893937245, 117.15853327078588, this)"
+      class="btn-keranjang-float"
+      title="Tambah ke Keranjang"
+    >
+      <i data-feather="shopping-cart"></i>
+    </button>
+  </div>
+
+  <div class="produk-info">
+    <a href="detail.html?nama=Baju Kemeja Pria Keren&harga=75000&ukuran=XL&kondisi=9.5/10" class="judul-link">
+      <h3>Baju Kemeja Pria Keren</h3>
+    </a>
+    <p class="meta-produk">XL &middot; 9.5/10</p>
+    <p class="harga">Rp 75.000</p>
+    
+    <a href="https://whatsapp.com" target="_blank" class="btn-nego-clean">Nego</a>
+  </div>
+</div>
+
+
+<div class="produk-card slide-item preloved-style">
+  <div class="produk-image">
+    <span class="badge-nego">Bisa Nego</span>
+    <span class="badge-keranjang">Di Keranjang</span>
+    
+    <!-- Klik foto langsung buka halaman detail -->
+    <a href="detail.html?nama=Baju Kemeja Pria Keren&harga=75000&ukuran=XL&kondisi=9.5/10">
+      <img src="preloved.jpg" alt="Baju Kemeja Pria Keren" />
+    </a>
+
+    <!-- Ikon keranjang melayang di pojok kanan bawah foto -->
+    <button
+      onclick="tambahKeKeranjang('Baju Kemeja Pria Keren', 75000, -0.4794345893937245, 117.15853327078588, this)"
+      class="btn-keranjang-float"
+      title="Tambah ke Keranjang"
+    >
+      <i data-feather="shopping-cart"></i>
+    </button>
+  </div>
+
+  <div class="produk-info">
+    <a href="detail.html?nama=Baju Kemeja Pria Keren&harga=75000&ukuran=XL&kondisi=9.5/10" class="judul-link">
+      <h3>Baju Kemeja Pria Keren</h3>
+    </a>
+    <p class="meta-produk">XL &middot; 9.5/10</p>
+    <p class="harga">Rp 75.000</p>
+    
+    <a href="https://whatsapp.com" target="_blank" class="btn-nego-clean">Nego</a>
+  </div>
+</div>
+
+
+<div class="produk-card slide-item preloved-style">
+  <div class="produk-image">
+    <span class="badge-nego">Bisa Nego</span>
+    <span class="badge-keranjang">Di Keranjang</span>
+    
+    <!-- Klik foto langsung buka halaman detail -->
+    <a href="detail.html?nama=Baju Kemeja Pria Keren&harga=75000&ukuran=XL&kondisi=9.5/10">
+      <img src="preloved.jpg" alt="Baju Kemeja Pria Keren" />
+    </a>
+
+    <!-- Ikon keranjang melayang di pojok kanan bawah foto -->
+    <button
+      onclick="tambahKeKeranjang('Baju Kemeja Pria Keren', 75000, -0.4794345893937245, 117.15853327078588, this)"
+      class="btn-keranjang-float"
+      title="Tambah ke Keranjang"
+    >
+      <i data-feather="shopping-cart"></i>
+    </button>
+  </div>
+
+  <div class="produk-info">
+    <a href="detail.html?nama=Baju Kemeja Pria Keren&harga=75000&ukuran=XL&kondisi=9.5/10" class="judul-link">
+      <h3>Baju Kemeja Pria Keren</h3>
+    </a>
+    <p class="meta-produk">XL &middot; 9.5/10</p>
+    <p class="harga">Rp 75.000</p>
+    
+    <a href="https://whatsapp.com" target="_blank" class="btn-nego-clean">Nego</a>
+  </div>
+</div>
+
+
+<div class="produk-card slide-item preloved-style">
+  <div class="produk-image">
+    <span class="badge-nego">Bisa Nego</span>
+    <span class="badge-keranjang">Di Keranjang</span>
+    
+    <!-- Klik foto langsung buka halaman detail -->
+    <a href="detail.html?nama=Baju Kemeja Pria Keren&harga=75000&ukuran=XL&kondisi=9.5/10">
+      <img src="preloved.jpg" alt="Baju Kemeja Pria Keren" />
+    </a>
+
+    <!-- Ikon keranjang melayang di pojok kanan bawah foto -->
+    <button
+      onclick="tambahKeKeranjang('Baju Kemeja Pria Keren', 75000, -0.4794345893937245, 117.15853327078588, this)"
+      class="btn-keranjang-float"
+      title="Tambah ke Keranjang"
+    >
+      <i data-feather="shopping-cart"></i>
+    </button>
+  </div>
+
+  <div class="produk-info">
+    <a href="detail.html?nama=Baju Kemeja Pria Keren&harga=75000&ukuran=XL&kondisi=9.5/10" class="judul-link">
+      <h3>Baju Kemeja Pria Keren</h3>
+    </a>
+    <p class="meta-produk">XL &middot; 9.5/10</p>
+    <p class="harga">Rp 75.000</p>
+    
+    <a href="https://whatsapp.com" target="_blank" class="btn-nego-clean">Nego</a>
+  </div>
+</div>
+
+
+<div class="produk-card slide-item preloved-style">
+  <div class="produk-image">
+    <span class="badge-nego">Bisa Nego</span>
+    <span class="badge-keranjang">Di Keranjang</span>
+    
+    <!-- Klik foto langsung buka halaman detail -->
+    <a href="detail.html?nama=Baju Kemeja Pria Keren&harga=75000&ukuran=XL&kondisi=9.5/10">
+      <img src="preloved.jpg" alt="Baju Kemeja Pria Keren" />
+    </a>
+
+    <!-- Ikon keranjang melayang di pojok kanan bawah foto -->
+    <button
+      onclick="tambahKeKeranjang('Baju Kemeja Pria Keren', 75000, -0.4794345893937245, 117.15853327078588, this)"
+      class="btn-keranjang-float"
+      title="Tambah ke Keranjang"
+    >
+      <i data-feather="shopping-cart"></i>
+    </button>
+  </div>
+
+  <div class="produk-info">
+    <a href="detail.html?nama=Baju Kemeja Pria Keren&harga=75000&ukuran=XL&kondisi=9.5/10" class="judul-link">
+      <h3>Baju Kemeja Pria Keren</h3>
+    </a>
+    <p class="meta-produk">XL &middot; 9.5/10</p>
+    <p class="harga">Rp 75.000</p>
+    
+    <a href="https://whatsapp.com" target="_blank" class="btn-nego-clean">Nego</a>
+  </div>
+</div>
+
+
+<div class="produk-card slide-item preloved-style">
+  <div class="produk-image">
+    <span class="badge-nego">Bisa Nego</span>
+    <span class="badge-keranjang">Di Keranjang</span>
+    
+    <!-- Klik foto langsung buka halaman detail -->
+    <a href="detail.html?nama=Baju Kemeja Pria Keren&harga=75000&ukuran=XL&kondisi=9.5/10">
+      <img src="preloved.jpg" alt="Baju Kemeja Pria Keren" />
+    </a>
+
+    <!-- Ikon keranjang melayang di pojok kanan bawah foto -->
+    <button
+      onclick="tambahKeKeranjang('Baju Kemeja Pria Keren', 75000, -0.4794345893937245, 117.15853327078588, this)"
+      class="btn-keranjang-float"
+      title="Tambah ke Keranjang"
+    >
+      <i data-feather="shopping-cart"></i>
+    </button>
+  </div>
+
+  <div class="produk-info">
+    <a href="detail.html?nama=Baju Kemeja Pria Keren&harga=75000&ukuran=XL&kondisi=9.5/10" class="judul-link">
+      <h3>Baju Kemeja Pria Keren</h3>
+    </a>
+    <p class="meta-produk">XL &middot; 9.5/10</p>
+    <p class="harga">Rp 75.000</p>
+    
+    <a href="https://whatsapp.com" target="_blank" class="btn-nego-clean">Nego</a>
+  </div>
+</div>
+
+
+<div class="produk-card slide-item preloved-style">
+  <div class="produk-image">
+    <span class="badge-nego">Bisa Nego</span>
+    <span class="badge-keranjang">Di Keranjang</span>
+    
+    <!-- Klik foto langsung buka halaman detail -->
+    <a href="detail.html?nama=Baju Kemeja Pria Keren&harga=75000&ukuran=XL&kondisi=9.5/10">
+      <img src="preloved.jpg" alt="Baju Kemeja Pria Keren" />
+    </a>
+
+    <!-- Ikon keranjang melayang di pojok kanan bawah foto -->
+    <button
+      onclick="tambahKeKeranjang('Baju Kemeja Pria Keren', 75000, -0.4794345893937245, 117.15853327078588, this)"
+      class="btn-keranjang-float"
+      title="Tambah ke Keranjang"
+    >
+      <i data-feather="shopping-cart"></i>
+    </button>
+  </div>
+
+  <div class="produk-info">
+    <a href="detail.html?nama=Baju Kemeja Pria Keren&harga=75000&ukuran=XL&kondisi=9.5/10" class="judul-link">
+      <h3>Baju Kemeja Pria Keren</h3>
+    </a>
+    <p class="meta-produk">XL &middot; 9.5/10</p>
+    <p class="harga">Rp 75.000</p>
+    
+    <a href="https://whatsapp.com" target="_blank" class="btn-nego-clean">Nego</a>
+  </div>
+</div>
+
+
+v
+
+<div class="produk-card slide-item preloved-style">
+  <div class="produk-image">
+    <span class="badge-nego">Bisa Nego</span>
+    <span class="badge-keranjang">Di Keranjang</span>
+    
+    <!-- Klik foto langsung buka halaman detail -->
+    <a href="detail.html?nama=Baju Kemeja Pria Keren&harga=75000&ukuran=XL&kondisi=9.5/10">
+      <img src="preloved.jpg" alt="Baju Kemeja Pria Keren" />
+    </a>
+
+    <!-- Ikon keranjang melayang di pojok kanan bawah foto -->
+    <button
+      onclick="tambahKeKeranjang('Baju Kemeja Pria Keren', 75000, -0.4794345893937245, 117.15853327078588, this)"
+      class="btn-keranjang-float"
+      title="Tambah ke Keranjang"
+    >
+      <i data-feather="shopping-cart"></i>
+    </button>
+  </div>
+
+  <div class="produk-info">
+    <a href="detail.html?nama=Baju Kemeja Pria Keren&harga=75000&ukuran=XL&kondisi=9.5/10" class="judul-link">
+      <h3>Baju Kemeja Pria Keren</h3>
+    </a>
+    <p class="meta-produk">XL &middot; 9.5/10</p>
+    <p class="harga">Rp 75.000</p>
+    
+    <a href="https://whatsapp.com" target="_blank" class="btn-nego-clean">Nego</a>
+  </div>
+</div>
+
+
+<div class="produk-card slide-item preloved-style">
+  <div class="produk-image">
+    <span class="badge-nego">Bisa Nego</span>
+    <span class="badge-keranjang">Di Keranjang</span>
+    
+    <!-- Klik foto langsung buka halaman detail -->
+    <a href="detail.html?nama=Baju Kemeja Pria Keren&harga=75000&ukuran=XL&kondisi=9.5/10">
+      <img src="preloved.jpg" alt="Baju Kemeja Pria Keren" />
+    </a>
+
+    <!-- Ikon keranjang melayang di pojok kanan bawah foto -->
+    <button
+      onclick="tambahKeKeranjang('Baju Kemeja Pria Keren', 75000, -0.4794345893937245, 117.15853327078588, this)"
+      class="btn-keranjang-float"
+      title="Tambah ke Keranjang"
+    >
+      <i data-feather="shopping-cart"></i>
+    </button>
+  </div>
+
+  <div class="produk-info">
+    <a href="detail.html?nama=Baju Kemeja Pria Keren&harga=75000&ukuran=XL&kondisi=9.5/10" class="judul-link">
+      <h3>Baju Kemeja Pria Keren</h3>
+    </a>
+    <p class="meta-produk">XL &middot; 9.5/10</p>
+    <p class="harga">Rp 75.000</p>
+    
+    <a href="https://whatsapp.com" target="_blank" class="btn-nego-clean">Nego</a>
+  </div>
+</div>
+
+
+     </div>
+</section>
+
+    <!-- SECTION PRODUK -->
+    <section id="produk" class="produk-section">
+      <div class="title">
+        <h2 class="section-title">Katalog <span>Produk</span></h2>
+        <p class="section-subtitle">
+          Pilih baju dan sepatu preloved terbaik. Bebas nego sampai deal!
+        </p>
+      </div>
+
+      <div class="produk-grid">
+        <!-- BARIS 1 - PRODUK 1 -->
+
+        <div class="produk-card preloved-style">
+  <div class="produk-image">
+    <span class="badge-nego">Bisa Nego</span>
+    <span class="badge-keranjang">Di Keranjang</span>
+    
+    <!-- Klik foto langsung ke Detail -->
+    <a href="detail.html?nama=Baju Kemeja Pria Keren&harga=75000&ukuran=XL&kondisi=9.5/10">
+      <img src="preloved.jpg" alt="Baju Kemeja Pria Keren" />
+    </a>
+
+    <!-- Ikon keranjang melayang di pojok kanan bawah foto -->
+    <button
+      onclick="tambahKeKeranjang('Baju Kemeja Pria Keren', 75000, -0.4794345893937245, 117.15853327078588, this)"
+      class="btn-keranjang-float"
+      title="Tambah ke Keranjang"
+    >
+      <i data-feather="shopping-cart"></i>
+    </button>
+  </div>
+
+  <div class="produk-info">
+    <a href="detail.html?nama=Baju Kemeja Pria Keren&harga=75000&ukuran=XL&kondisi=9.5/10" class="judul-link">
+      <h3>Baju Kemeja Pria Keren</h3>
+    </a>
+    <p class="meta-produk">XL &middot; 9.5/10</p>
+    <p class="harga">Rp 75.000</p>
+    
+    <a href="https://whatsapp.com" target="_blank" class="btn-nego-clean">Nego</a>
+  </div>
+</div>
+
+<div class="produk-card preloved-style">
+  <div class="produk-image">
+    <span class="badge-nego">Bisa Nego</span>
+    <span class="badge-keranjang">Di Keranjang</span>
+    
+    <!-- Klik foto langsung ke Detail -->
+    <a href="detail.html?nama=Baju Kemeja Pria Keren&harga=75000&ukuran=XL&kondisi=9.5/10">
+      <img src="preloved.jpg" alt="Baju Kemeja Pria Keren" />
+    </a>
+
+    <!-- Ikon keranjang melayang di pojok kanan bawah foto -->
+    <button
+      onclick="tambahKeKeranjang('Baju Kemeja Pria Keren', 75000, -0.4794345893937245, 117.15853327078588, this)"
+      class="btn-keranjang-float"
+      title="Tambah ke Keranjang"
+    >
+      <i data-feather="shopping-cart"></i>
+    </button>
+  </div>
+
+  <div class="produk-info">
+    <a href="detail.html?nama=Baju Kemeja Pria Keren&harga=75000&ukuran=XL&kondisi=9.5/10" class="judul-link">
+      <h3>Baju Kemeja Pria Keren</h3>
+    </a>
+    <p class="meta-produk">XL &middot; 9.5/10</p>
+    <p class="harga">Rp 75.000</p>
+    
+    <a href="https://whatsapp.com" target="_blank" class="btn-nego-clean">Nego</a>
+  </div>
+</div>
+
+
+<div class="produk-card preloved-style">
+  <div class="produk-image">
+    <span class="badge-nego">Bisa Nego</span>
+    <span class="badge-keranjang">Di Keranjang</span>
+    
+    <!-- Klik foto langsung ke Detail -->
+    <a href="detail.html?nama=Baju Kemeja Pria Keren&harga=75000&ukuran=XL&kondisi=9.5/10">
+      <img src="preloved.jpg" alt="Baju Kemeja Pria Keren" />
+    </a>
+
+    <!-- Ikon keranjang melayang di pojok kanan bawah foto -->
+    <button
+      onclick="tambahKeKeranjang('Baju Kemeja Pria Keren', 75000, -0.4794345893937245, 117.15853327078588, this)"
+      class="btn-keranjang-float"
+      title="Tambah ke Keranjang"
+    >
+      <i data-feather="shopping-cart"></i>
+    </button>
+  </div>
+
+  <div class="produk-info">
+    <a href="detail.html?nama=Baju Kemeja Pria Keren&harga=75000&ukuran=XL&kondisi=9.5/10" class="judul-link">
+      <h3>Baju Kemeja Pria Keren</h3>
+    </a>
+    <p class="meta-produk">XL &middot; 9.5/10</p>
+    <p class="harga">Rp 75.000</p>
+    
+    <a href="https://whatsapp.com" target="_blank" class="btn-nego-clean">Nego</a>
+  </div>
+</div>
+
+
+<div class="produk-card preloved-style">
+  <div class="produk-image">
+    <span class="badge-nego">Bisa Nego</span>
+    <span class="badge-keranjang">Di Keranjang</span>
+    
+    <!-- Klik foto langsung ke Detail -->
+    <a href="detail.html?nama=Baju Kemeja Pria Keren&harga=75000&ukuran=XL&kondisi=9.5/10">
+      <img src="preloved.jpg" alt="Baju Kemeja Pria Keren" />
+    </a>
+
+    <!-- Ikon keranjang melayang di pojok kanan bawah foto -->
+    <button
+      onclick="tambahKeKeranjang('Baju Kemeja Pria Keren', 75000, -0.4794345893937245, 117.15853327078588, this)"
+      class="btn-keranjang-float"
+      title="Tambah ke Keranjang"
+    >
+      <i data-feather="shopping-cart"></i>
+    </button>
+  </div>
+
+  <div class="produk-info">
+    <a href="detail.html?nama=Baju Kemeja Pria Keren&harga=75000&ukuran=XL&kondisi=9.5/10" class="judul-link">
+      <h3>Baju Kemeja Pria Keren</h3>
+    </a>
+    <p class="meta-produk">XL &middot; 9.5/10</p>
+    <p class="harga">Rp 75.000</p>
+    
+    <a href="https://whatsapp.com" target="_blank" class="btn-nego-clean">Nego</a>
+  </div>
+</div>
+
+
+       
+          
+        
+      </div>
+    </section>
+
+    <!-- section end -->
+
+    <!-- footer start -->
+
+    <footer class="footer-modern">
+      <div class="footer-container">
+        <!-- Bagian 1: Tentang Toko -->
+        <div class="footer-box">
+          <h3>Imelda Preloved</h3>
+          <p>
+            Temukan pakaian dan barang preloved berkualitas tinggi dengan harga
+            ramah kantong. Pilihan terbaik untuk gaya hidup hemat dan
+            berkelanjutan.
+          </p>
+        </div>
+
+        <!-- Bagian 2: Navigasi Cepat -->
+        <div class="footer-box">
+          <h3>Jelajahi</h3>
+          <ul>
+            <li><a href="#">Beranda</a></li>
+            <li><a href="#">Cara Tipjul</a></li>
+            <li><a href="#">Cara Order</a></li>
+            <li><a href="#">Kontak Kami</a></li>
+          </ul>
+        </div>
+
+        <!-- Bagian 3: Media Sosial & Kontak -->
+        <div class="footer-box">
+          <h3>Hubungi Kami</h3>
+          <p>Email: info@imeldapreloved.com</p>
+          <div class="social-icons">
+            <a
+              href="https://www.instagram.com/preloved.smr00/?utm_source=ig_web_button_share_sheet"
+              class="social-link"
+              >Instagram</a
+            >
+            <a
+              href="https://wa.me/6282254424738"
+              class="social-link"
+              target="_blank"
+              >WhatsApp</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- <!-- Bagian Paling Bawah (Hak Cipta) -->
+      <div class="footer-bottom">
+        <p>&copy; 2026 Imelda Preloved Store. All Rights Reserved.</p>
+      </div>
+    </footer>
+
+    <!-- feather-icon -->
+    <script>
+      feather.replace();
+    </script>
+    <!-- feather-icon -->
+
+    <!-- my javascript -->
+    <script src="script.js"></script>
+  </body>
+</html>

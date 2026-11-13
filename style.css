@@ -1,0 +1,1475 @@
+:root {
+  --primary: pink;
+}
+
+.icon {
+  border-radius: 3rem;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  text-decoration: none;
+}
+
+body {
+  font-family: "poppins", sans-serif;
+  /* background-color: pink; */
+  background-color: #fff6f9;
+  /* min-height: 2000px; */
+}
+
+/* navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-self: center;
+  padding: 1.3rem 7%;
+  background-color: rgba(232, 121, 158, 0.9);
+  border-bottom: 1px solid pink;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+}
+
+.navbar .navbar-logo {
+  font-size: 2rem;
+  font-weight: 700;
+  color: rgb(255, 17, 96);
+}
+
+.navbar .navbar-logo span {
+  color: white;
+}
+
+.navbar-utama {
+  color: white;
+  display: inline-block;
+  font-size: 1.3rem;
+  margin: 0 1rem;
+}
+
+.navbar-utama:hover {
+  color: rgb(255, 17, 96);
+}
+
+.navbar-utama::after {
+  content: "";
+  display: block;
+  padding-bottom: 0.5rem;
+  border-bottom: 0.1rem solid rgb(255, 17, 96);
+  transform: scaleX(0);
+  transition: 0.2s linear;
+}
+.navbar-utama:hover:after {
+  transform: scaleX(0.5);
+}
+
+.navbar .navbar-extra {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.shopping-cart-container {
+  position: relative;
+  display: inline-block;
+}
+
+.button-icon-cart {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.cart-button:hover {
+  color: rgb(255, 17, 96);
+}
+
+.cart-button::after {
+  content: "";
+  display: block;
+  padding-bottom: 0.5rem;
+  border-bottom: 0.1rem solid rgb(255, 17, 96);
+  transform: scaleX(0);
+  transition: 0.2s linear;
+}
+
+.cart-button:hover::after {
+  transform: scaleX(0.5);
+}
+
+/* Kotak keranjang belanja melayang */
+.shopping-cart-box {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #fff;
+  width: 300px;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  color: #333;
+  display: none; /* Sembunyikan default-nya */
+  z-index: 999;
+  margin-top: 10px;
+}
+
+/* Kelas untuk memunculkan kotak saat ikon diklik */
+.shopping-cart-box.active {
+  display: block;
+}
+
+.shopping-cart-box h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #efefef;
+  padding-bottom: 5px;
+}
+
+
+#daftar-keranjang {
+  list-style: none;
+  padding: 0;
+  max-height: 200px;
+  overflow-y: auto; /* Kasih scroll kalau barangnya banyak */
+}
+
+#daftar-keranjang li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  padding: 8px 0;
+  border-bottom: 1px dashed #eee;
+}
+
+.btn-hapus {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 3px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.cart-total {
+  font-weight: bold;
+  margin-top: 15px;
+  /* text-align: right; */
+  font-size: 15px;
+}
+
+.shopping-cart-box .btn-checkout1 {
+  display: flex !important;
+  background-color: #25d366;
+  color: rgb(15, 15, 15) !important;
+  align-items: center;
+  justify-content: center;
+  /* text-align: center; */
+  padding: 10px;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-top: 15px;
+  font-weight: bold;
+  font-size: 14px;
+  width: 95%;
+  box-sizing: border-box;
+}
+
+.shopping-cart-box .btn-checkout1:hover {
+  color: rgb(255, 17, 96) !important;
+}
+
+.shopping-cart-box .btn-checkout1:hover::after {
+  content: "";
+  display: block;
+  padding-bottom: 0.5rem;
+  border-bottom: 0.1rem solid rgb(255, 17, 96) !important;
+  transform: scaleX(0);
+  transition: 0.2s linear;
+}
+.shopping-cart-box .btn-checkout1::after {
+  transform: scaleX(0.5);
+}
+
+.badge-notif {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  background-color: #ff4d4d; /* Warna merah */
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 50%;
+  display: none; /* Sembunyikan jika isi keranjang masih 0 */
+}
+
+.navbar .navbar-extra a {
+  color: white;
+  margin: 0 0.5rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+.navbar .navbar-extra a:hover {
+  color: rgb(255, 17, 96);
+}
+
+#menu {
+  display: none;
+}
+
+.navbar .navbar-logo a {
+  color: white;
+}
+
+.search-container {
+  flex-grow: 1;
+  position: relative;
+  max-width: 550px;
+  margin-left: 8rem;
+  margin-right: 2rem;
+}
+
+/* Box Input dan Tombol */
+.search-box {
+  margin-left: auto;
+  display: flex;
+  flex-grow: 1;
+}
+
+/* Kotak Input Pencarian (Panjang & Besar) */
+.search-input {
+  width: 100%;
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px 0 0 4px;
+  outline: none;
+}
+
+/* Tombol Cari */
+.search-btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #e8799c; /* Warna tema Anda */
+  color: white;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.search-btn:hover {
+  background-color: #d66285;
+}
+
+/* Kotak Rekomendasi/Autocomplete (Melayang di bawah Input) */
+.autocomplete-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-top: none;
+  z-index: 99;
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: none; /* Disembunyikan di awal oleh JavaScript */
+  border-radius: 0 0 4px 4px;
+}
+
+/* Item Daftar Rekomendasi */
+.suggestion-item {
+  padding: 12px 15px;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #333;
+  border-bottom: 1px solid #f5f5f5;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+/* Efek ketika Rekomendasi Disorot (Hover) */
+.suggestion-item:hover {
+  background-color: #f9f9f9;
+  color: #e8799c;
+}
+
+.rekomendasi-section {
+  padding: 30px 5%;
+}
+
+.rekomendasi-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.katalog-slider {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto; /* Kunci biar bisa digeser ke samping */
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory; /* Biar berhenti pas di kartu */
+  padding-bottom: 10px;
+}
+
+/* Sembunyikan scrollbar bawaan biar estetik */
+.katalog-slider::-webkit-scrollbar {
+  display: none;
+}
+
+.slide-item {
+  min-width: 240px; /* Lebar tiap kartu di slider */
+  flex-shrink: 0; /* Mencegah kartu gepeng */
+  scroll-snap-align: start;
+}
+
+.slider-nav button {
+  background-color: #ffffff;
+  color: #e84393;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  margin-left: 6px;
+  transition: 0.2s;
+}
+
+.slider-nav button:hover {
+  background-color: #e84393;
+  color: #ffffff;
+}
+
+
+.Format {
+  margin-top: 20px;
+}
+
+.Format h4 {
+  font-size: 13px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #efefef;
+  padding-bottom: 5px;
+}
+
+.Format-1 label{
+  font-size: 13px;
+}
+
+.Format-1 input, .Format-1 textarea {
+  /* padding: 8px 0; */
+  border-bottom: 1px solid #ccc;
+  transition: border-color 0.3;
+  resize: none;  
+  font-size: 14px;
+}
+
+/* Efek saat kotak input diklik / sedang diketik */
+.Format-1 input:focus, .Format-1 textarea:focus { 
+  border-bottom: 2px solid black; /* Garis berubah menjadi biru */
+}
+
+.sembunyi{
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #fff;
+  width: 300px;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  color: #333;
+  display: none; /* Sembunyikan default-nya */
+  z-index: 999;
+  margin-top: 10px;
+
+}
+
+.bayar-2.active{
+  display: block;
+}
+
+/* navbar */
+
+/* hero section */
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background-image: url("preloved1.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.hero::after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 30%;
+  bottom: 0;
+  background: linear-gradient(0deg,  #fff6f9 8%, rgba(255, 255, 255, 0) 50%);
+}
+
+.hero .konten {
+  padding: 1.3rem 7%;
+  max-width: 60rem;
+}
+
+.hero .konten h1 {
+  font-size: 3rem;
+  color: white;
+  text-shadow: 1px 1px 3px rgba(1, 1, 3, 0.5);
+  line-height: 1.2;
+}
+
+.hero .konten h1 span {
+  color: rgb(255, 17, 96);
+}
+
+.hero .konten p {
+  color: white;
+  font-size: 1.6rem;
+  margin-top: 1rem;
+  line-height: 1.4;
+  font-weight: 100;
+  text-shadow: 1px 1px 3px rgba(16, 16, 16, 0.5);
+  line-height: 1.2;
+  mix-blend-mode: difference;
+}
+
+.hero .konten .cta {
+  margin-top: 1rem;
+  display: inline-block;
+  padding: 1rem 3rem;
+  font-size: 1.4rem;
+  color: white;
+  background-color: rgb(232, 121, 158);
+  border-radius: 0.5rem;
+  box-shadow: 1px 1px 3px rgba(1, 1, 3, 0.5);
+}
+
+/* media quires */
+
+@media (min-width: 769px) {
+  #search,
+  #search svg,
+  .navbar-extra a#search {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    width: 0 !important;
+    margin: 0 !important;
+  }
+
+  .produk-section {
+    display: block !important;
+    max-width: 1200px !important; /* Mengunci lebar di laptop agar tidak melar ke ujung layar */
+    margin: 20px auto 80px auto !important; /* Renggang ke bawah 80px agar TIDAK NEMPEL FOOTER */
+    padding: 90px 20px 0px 20px !important; /* Padding samping aman 20px */
+    box-sizing: border-box;
+  }
+
+  /* KUNCI LAPTOP 2: Mengatur Grid 3 Kolom */
+  .produk-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important; /* 3 Kolom sejajar rata */
+    gap: 2.5rem !important;
+    width: 100% !important;
+  }
+
+  /* KUNCI LAPTOP 3: Renggangkan Jarak Footer */
+  .footer-container {
+    max-width: 1200px !important;
+    margin: 60px auto 20px auto !important; /* Jarak atas 60px agar punya ruang bernapas */
+    display: flex !important;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 30px;
+    padding: 0 20px !important; /* Teks footer tidak nempel dinding layar */
+    box-sizing: border-box;
+  }
+}
+
+/* ==========================================================================
+   TAMPILAN KHUSUS TABLET & HP (MAKSIMAL 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .navbar {
+    /* SOLUSI 1: Perkecil padding samping di HP agar konten tidak sesak & wajib border-box */
+    padding: 1rem 4% !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .navbar .navbar-logo {
+    /* SOLUSI 2: Perkecil ukuran logo sedikit agar muat bersanding dengan ikon lain di iPhone SE */
+    font-size: 1.5rem !important;
+  }
+
+  /* SOLUSI 3: Amankan kotak keranjang belanja agar tidak menusuk dinding layar iPhone SE */
+  .shopping-cart-box {
+    width: 280px !important; /* Perkecil sedikit dari 300px agar aman di layar 320px */
+    right: -10px !important; /* Geser sedikit agar posisinya pas di bawah ikon */
+    box-sizing: border-box !important;
+  }
+
+  .title,
+  h2 {
+    font-size: 1.5rem !important; /* Jangan biarkan font ukuran laptop yang besar terbawa ke HP */
+  }
+
+  .search-container {
+    position: absolute;
+    top: 100%; /* Muncul tepat di bawah navbar */
+    left: 7%; /* Mengikuti padding 7% navbar Anda */
+    right: 7%;
+    max-width: 86%; /* Ukuran pas di tengah layar HP, tidak kepanjangan */
+    margin: 0 auto;
+    background-color: white;
+    padding: 8px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+
+    /* Efek Animasi Meluncur (Sembunyi di awal) */
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: 0.3s ease;
+    opacity: 0;
+    z-index: 999;
+  }
+
+  /* Pemicu dari JavaScript agar kotak pencarian meluncur muncul */
+  .search-container.aktif {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+
+  /* Menyesuaikan kotak rekomendasi melayang agar rapi di layar HP */
+  .autocomplete-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+  }
+
+  .katalog-container,
+  .products-container {
+    display: flex;
+    flex-wrap: wrap; /* Wajib agar tidak gepeng ke samping */
+    gap: 15px;
+  }
+
+  .produk-section {
+    height: 50%;
+    padding: 0 15px;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden;
+  }
+
+  .produk-action,
+  .btn-beli,
+  .btn-nego,
+  .btn-keranjang {
+    display: none !important; /* Sembunyikan total dari layar HP */
+  }
+
+  /* 2. Atur lebar card produk di HP (misal: 1 kolom penuh atau 2 kolom berdampingan) */
+  .produk-card,
+  .product-card {
+    /* flex: 0 0 calc(50% - 8px) !important; Ubah ke 100% jika ingin 1 kolom penuh saja */
+    width: 100% !important; /* Mengikuti kolom grid */
+    max-width: 100% !important;
+    height: auto; /* Biarkan tinggi card mengikuti konten teks */
+    padding: 0px !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    /* gap: 10px; */
+  }
+
+  .produk-image {
+    width: 100% !important;
+    height: 50% !important;
+    /* aspect-ratio: 1 / 1.5 !important; */
+    overflow: hidden;
+    border-radius: 8px; /* Membuat sudut foto agak tumpul lembut */
+    position: relative;
+  }
+
+  /* 3. Amankan gambar agar tidak gepeng */
+  .produk-card img,
+  .product-card img,
+  .produk-image img {
+    position: static;
+    width: 100%;
+    height: 50%; /* Tentukan tinggi gambar konstan di HP */
+    /* object-fit: cover; Memotong gambar secara proporsional */
+    object-fit: cover !important;
+
+    /* aspect-ratio: 1 / 1 !important; */
+    overflow: hidden;
+    border-radius: 6px; /* Sudut foto sedikit melengkung agar manis, hapus/ubah ke 0 jika ingin tajam */
+
+    /* padding: 0 15px; */
+  }
+
+  .produk-judul,
+  .product-title,
+  .produk-info h3 {
+    font-size: 13px !important;
+    color: #2c3e50 !important;
+    margin: 6px 0 2px 0 !important;
+    line-height: 1.3 !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden !important;
+    white-space: normal !important; /* Biarkan teks turun ke baris ke-2 jika panjang */
+    /* text-overflow: ellipsis; */
+  }
+
+  /* 4. Amankan teks judul/deskripsi produk */
+
+  .produk-harga,
+  .product-price {
+    font-size: 14px !important;
+    font-weight: bold;
+    color: #e74c3c;
+  }
+
+  .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .btn-beli,
+  .btn-nego {
+    padding: 0.5rem !important; /* Tipiskan padding tombol */
+    font-size: 0.8rem !important; /* Perkecil font tombol */
+  }
+
+  .produk-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important; /* Bagi 2 kolom */
+    gap: 12px !important; /* Jarak antar kotak produk */
+    padding: 0 10px !important;
+  }
+
+  .badge-nego {
+    top: 6px !important;
+    left: 6px !important;
+    padding: 3px 6px !important;
+    font-size: 10px !important;
+  }
+
+  .produk-info {
+    padding: 6px 2px 0px 2px !important; /* Beri jarak tipis dari bawah foto */
+  }
+
+  .produk-info h3 {
+    font-size: 13px !important;
+    color: #2c3e50;
+    margin: 0 0 2px 0 !important;
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Jika judul kepanjangan otomatis terpotong jadi (...) */
+  }
+
+  .produk-info p.ukuran,
+  .produk-info p.kondisi {
+    font-size: 11px !important;
+    color: #888888;
+    margin: 0 0 2px 0 !important;
+  }
+
+  /* 10. Sesuaikan Font Harga agar Menarik */
+  .produk-info p.harga {
+    font-size: 13px !important;
+    font-weight: bold;
+    color: #e74c3c; /* Warna aksen merah/coral untuk harga */
+    margin: 2px 0 0 0 !important;
+  }
+
+  .rekomendasi-section {
+    padding: 15px !important;
+  }
+
+}
+
+/* KECILKAN LOGO DI HP */
+/* 
+ .navbar-extra a,
+ .navbar-extra a svg {
+  display: inline-block !important;
+  vertical-align: middle !important; /* Memaksa SVG bawaan Feather Icons rata tengah dengan teks/ikon lain */
+/* height: 24px !important; /* Kunci tinggi ikon agar seragam */
+/* width: 24px !important; Kunci lebar ikon agar seragam */
+/* line-height: 1 !important; */
+*/
+/* } */
+
+/* section */
+
+/* ==================== SECTION PRODUK ==================== */
+.produk-section {
+  /* Naikkan padding samping dari 7% menjadi 10% atau 12% agar memberikan ruang kosong di pinggir */
+
+  display: block !important;
+  position: relative !important; /* KUNCI 1: Mengunci area section agar tidak melayang menjebol navbar */
+  z-index: 1 !important;
+  max-width: 1200px !important;
+  padding: 100px 20px 0px 20px !important; /* 100px memberikan jarak aman di bawah navbar */
+  margin: 20px auto 80px auto !important; /* 80px margin bawah agar menjauh dari footer */
+  box-sizing: border-box !important;
+  float: none !important; /* Mencegah bug float lama */
+  clear: both !important;
+}
+
+/* Mengatur posisi gambar agar badge nego bisa melayang di atasnya */
+.produk-image {
+  display: block !important;
+  width: 100% !important;
+  height: 400px;
+  overflow: hidden !important;
+  position: relative !important;
+  border-radius: 0.6rem !important;
+}
+
+/* Pengaturan Gambar Produk Agar Panjang Ke Atas & Lebar */
+
+.produk-image img {
+  display: block !important;
+  width: 100% !important; /* Mengunci lebar gambar agar 100% penuh mengikuti kotak kartu */
+  height: 100% !important; /* UBAH DI SINI: Naikkan tinggi dari 300px menjadi 400px atau 420px agar memanjang ke atas */
+  object-fit: cover !important; /* KUNCI: Memotong foto secara otomatis di bagian tengah agar tidak lonjong atau gepeng */
+  object-position: center !important; /* Memastikan fokus potongan gambar selalu tepat di tengah baju/sepatu */
+  border-radius: 0.6rem !important;
+}
+
+/* Badge Tulisan 'Bisa Nego' Melayang di Pojok Kiri Atas Gambar */
+.badge-nego {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background-color: #25d366; /* Warna hijau khas WhatsApp/Nego */
+  color: white;
+  padding: 5px 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+}
+
+/* Mengatur agar tombol Detail dan Nego berjejer kanan-kiri */
+.produk-action {
+  display: flex;
+  gap: 10px; /* Jarak antara kedua tombol */
+}
+
+/* Penyesuaian Tombol Detail (Biar berbagi ruang) */
+.btn-beli {
+  flex: 2; /* Mengambil ruang lebih besar */
+  text-align: center;
+  padding: 0.8rem;
+  background-color: rgb(232, 121, 158);
+  color: white;
+  font-weight: 500;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+/* Styling Tombol Nego Baru */
+.btn-nego {
+  flex: 1; /* Mengambil ruang secukupnya */
+  text-align: center;
+  padding: 0.8rem;
+  background-color: #25d366; /* Warna hijau WhatsApp */
+  color: white;
+  font-weight: 500;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: background-color 0.2s ease;
+}
+
+.btn-nego:hover {
+  background-color: #128c7e; /* Hijau lebih gelap saat di-hover */
+}
+
+/* KUNCI TATA LETAK: Kunci 3 kolom sejajar di layar laptop/komputer */
+.produk-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    3,
+    1fr
+  ); /* MEMBAGI PERSIS 3 KOLOM SEJAJAR RATA */
+  width: 100%;
+  gap: 2.5rem; /* Jarak spasi antar kotak produk */
+  box-sizing: border-box;
+  align-items: start;
+  position: relative !important;
+}
+
+.btn-keranjang {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 13px;
+  transition: background 0.3s;
+}
+.btn-keranjang:hover {
+  background-color: #c0392b;
+}
+.keranjang-section {
+  background-color: #ffffff;
+  border: 1px solid #e1e8ed;
+  padding: 25px;
+  border-radius: 8px;
+  max-width: 600px;
+  margin: 40px auto;
+  font-family: sans-serif;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+#daftar-keranjang {
+  list-style: none;
+  padding: 0;
+}
+#daftar-keranjang li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px dashed #ccc;
+  font-size: 14px;
+}
+.btn-hapus {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.total-bayar {
+  margin-top: 15px;
+  font-size: 18px;
+  display: block;
+  text-align: right;
+  color: #2c3e50;
+}
+.form-checkout {
+  margin-top: 30px;
+  border-top: 2px solid #2c3e50;
+  padding-top: 20px;
+}
+.form-checkout h3 {
+  margin-bottom: 15px;
+  font-size: 16px;
+  color: #2c3e50;
+}
+.form-checkout input,
+.form-checkout textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.btn-checkout {
+  width: 100%;
+  background-color: #25d366; /* Warna Hijau WA */
+  color: white;
+  padding: 12px;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: background 0.3s;
+}
+.btn-checkout:hover {
+  background-color: #20ba5a;
+}
+
+/* ==================== MEDIA QUERIES (BIAR PAS DI HP) ==================== */
+
+/* Tampilan di Tablet (Layar di bawah 992px, kita ubah jadi 2 kolom) */
+@media (max-width: 992px) {
+  .produk-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem 1.5rem;
+    margin-bottom: 6rem;
+  }
+
+  .title {
+    padding: 2rem 1.5rem;
+  }
+}
+
+/* Tampilan di HP (Layar di bawah 576px, otomatis berjejer 1 kolom ke bawah biar tidak gepeng) */
+/* @media (min-width: 576px) { */
+
+/* Styling Footer Modern */
+/* === FOOTER MODERN & CLEAN === */
+.footer-modern {
+  background-color: #ffffff; /* Latar putih bersih biar kontras & elegan */
+  color: #333333;
+  padding: 40px 20px 20px 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  border-top: 2px solid #f8c2d4; /* Garis pemisah pink lembut */
+  margin-top: 40px;
+}
+
+.footer-container {
+  height: auto;
+  max-width: 1120px; /* Sejajar persis sama lebar katalog di atas */
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.footer-box {
+  flex: 1;
+  min-width: 240px;
+}
+
+.footer-box h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: #222222;
+  position: relative;
+}
+
+/* Garis dekorasi kecil warna pink utama */
+.footer-box h3::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  height: 3px;
+  width: 36px;
+  border-radius: 3px;
+  background-color: #e84393;
+}
+
+.footer-box p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #555555; /* Abu-abu tua, sangat jelas dibaca di atas putih */
+}
+
+.footer-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-box ul li {
+  margin-bottom: 8px;
+}
+
+.footer-box ul li a {
+  color: #555555;
+  text-decoration: none;
+  font-size: 13px;
+  transition: color 0.2s ease, padding-left 0.2s ease;
+}
+
+.footer-box ul li a:hover {
+  color: #e84393;
+  padding-left: 4px;
+}
+
+.social-icons {
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+}
+
+/* Tombol Instagram & WhatsApp gaya modern */
+.social-link {
+  font-size: 12px;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #e84393;
+  padding: 8px 16px;
+  border-radius: 20px;
+  text-decoration: none;
+  transition: 0.2s ease;
+  box-shadow: 0 3px 8px rgba(232, 67, 147, 0.2);
+}
+
+.social-link:hover {
+  background-color: #c23666;
+  transform: translateY(-2px);
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 30px;
+  padding-top: 18px;
+  border-top: 1px solid #f3d1dc;
+  font-size: 12px;
+  color: #777777;
+}
+
+ .badge-keranjang {
+  display: none; /* Sembunyi sebelum diklik */
+  position: absolute;
+  top: 10px;
+  right: 10px; /* Taruh di kanan biar nggak tabrakan sama badge-nego */
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 5px;
+  z-index: 2;
+}
+
+/* Munculkan badge "Di Keranjang" saat card diklik */
+.produk-card.sudah-diklaim .badge-keranjang {
+  display: block;
+}
+
+/* Bikin foto produk agak redup biar kelihatan udah diamankan */
+.produk-card.sudah-diklaim .produk-image img {
+  opacity: 0.6;
+  transition: 0.3s ease;
+}
+
+/* Ubah warna tombol keranjang pas udah diklik */
+.btn-keranjang:disabled {
+  background-color: #95a5a6 !important;
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+.rekomendasi-section {
+  max-width: 1120px; /* Batas lebar maksimal (pas buat 4-5 kartu berjejer) */
+  margin: 0 auto;    /* Otomatis bikin posisinya center di tengah layar */
+  padding: 20px;
+  border-bottom: 1.5px solid #f3d1dc;
+  padding-bottom: 32px !important;
+  margin-bottom: 24px !important;
+}
+
+ .katalog-slider {
+  display: flex;
+  gap: 18px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 12px;
+}
+
+
+/* Kunci ukuran kartu khusus di dalam slider rekomendasi */
+.katalog-slider .slide-item {
+  position: relative; 
+  width: 210px !important;      /* Lebar kartu ramping & pas */
+  min-width: 210px !important;
+  max-width: 210px !important;
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  flex-shrink: 0;
+  scroll-snap-align: start;
+}
+
+/* Kunci tinggi foto di dalam kartu slider biar nggak melar ke bawah */
+.katalog-slider .slide-item .produk-image {
+  width: 100% !important;
+  height: 180px !important;     /* Tinggi foto pas kotak */
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.katalog-slider .slide-item .produk-image img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+
+/* Rapikan jarak teks judul & harga di dalam slider */
+.katalog-slider .slide-item .produk-info h3 {
+  font-size: 14px !important;
+  margin-top: 8px !important;
+}
+
+/* === GAYA CLEAN ALA PRELOVED.CO.ID === */
+.katalog-slider .slide-item.preloved-style {
+  width: 205px !important;
+  min-width: 205px !important;
+  max-width: 205px !important;
+  background: transparent !important; /* Hapus kotak putih kaku */
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+/* Foto tegak sudut membulat */
+.katalog-slider .slide-item.preloved-style .produk-image {
+  position: relative;
+  width: 100% !important;
+  height: 250px !important; /* Rasio tegak 3:4 pas buat baju */
+  border-radius: 12px !important;
+  overflow: hidden;
+  margin-bottom: 10px !important;
+  background-color: #f3f4f6;
+}
+
+.katalog-slider .slide-item.preloved-style .produk-image img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  transition: transform 0.3s ease;
+}
+
+.katalog-slider .slide-item.preloved-style:hover .produk-image img {
+  transform: scale(1.04); /* Efek zoom halus pas disorot kursor */
+}
+
+/* Badge Bisa Nego versi halus di pojok kiri atas */
+.katalog-slider .slide-item.preloved-style .badge-nego {
+  top: 10px !important;
+  left: 10px !important;
+  background-color: rgba(34, 197, 94, 0.92) !important;
+  font-size: 11px !important;
+  padding: 4px 10px !important;
+  border-radius: 20px !important;
+  z-index: 2;
+}
+
+/* Tombol Keranjang bulat melayang di pojok kanan bawah foto */
+.btn-keranjang-float {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  color: #222222;
+  border: none;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.16);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 3;
+  transition: 0.2s ease;
+}
+
+.btn-keranjang-float:hover {
+  background-color: #e84393;
+  color: #ffffff;
+  transform: scale(1.08);
+}
+
+.btn-keranjang-float svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Teks 3 baris super rapi */
+.katalog-slider .slide-item.preloved-style .judul-link {
+  text-decoration: none;
+}
+
+.katalog-slider .slide-item.preloved-style .produk-info h3 {
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  color: #222222 !important;
+  margin: 0 0 3px 0 !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.katalog-slider .slide-item.preloved-style .meta-produk {
+  font-size: 12px !important;
+  color: #777777 !important;
+  margin: 0 0 4px 0 !important;
+}
+
+.katalog-slider .slide-item.preloved-style .harga {
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  color: #111111 !important;
+  margin: 0 0 8px 0 !important;
+}
+
+/* Tombol Nego clean di bawah harga */
+.btn-nego-clean {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  background-color: #ffffff;
+  color: #25d366;
+  border: 1.5px solid #25d366;
+  border-radius: 8px;
+  padding: 5px 0;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.btn-nego-clean:hover {
+  background-color: #25d366;
+  color: #ffffff;
+}
+
+/* === PENYESUAIAN DI LAYAR HP === */
+@media (max-width: 600px) {
+  .katalog-slider .slide-item.preloved-style {
+    width: 155px !important;
+    min-width: 155px !important;
+    max-width: 155px !important;
+  }
+
+  .katalog-slider .slide-item.preloved-style .produk-image {
+    height: 195px !important;
+  }
+
+  .btn-keranjang-float {
+    width: 32px;
+    height: 32px;
+    bottom: 8px;
+    right: 8px;
+  }
+}
+
+
+/* KHUSUS LAYAR HP (TARUH DI PALING BAWAH STYLE.CSS) */
+@media (max-width: 600px) {
+  .rekomendasi-section {
+    padding: 15px !important;
+  }
+
+  .katalog-slider .slide-item {
+    width: 150px !important;
+    min-width: 150px !important;
+    max-width: 150px !important;
+    padding: 8px !important;
+  }
+
+  .katalog-slider .slide-item .produk-image {
+    height: 125px !important;
+  }
+
+  .katalog-slider .slide-item .produk-info h3 {
+    font-size: 13px !important;
+  }
+
+  .katalog-slider .slide-item .produk-info p {
+    font-size: 11px !important;
+  }
+
+  /* Bikin tombol bawah muat sejajar di kartu kecil */
+  .katalog-slider .slide-item .produk-action {
+    gap: 4px !important;
+  }
+  .katalog-slider .slide-item .produk-action a,
+  .katalog-slider .slide-item .produk-action button {
+    padding: 5px 6px !important;
+    font-size: 11px !important;
+  }
+
+  .slider-nav{
+    display: none !important;
+  }
+}
+
+/* === GAYA CLEAN PRELOVED UNTUK SLIDER & KATALOG UTAMA === */
+.produk-card.preloved-style {
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+/* Lebar khusus kartu di dalam slider atas */
+.katalog-slider .produk-card.preloved-style {
+  width: 205px !important;
+  min-width: 205px !important;
+  max-width: 205px !important;
+}
+
+/* Grid Katalog Produk Utama (5 kolom sejajar di laptop) */
+.produk-section {
+  max-width: 1120px !important;
+  margin: 0 auto !important;
+  padding: 20px !important;
+}
+
+.produk-section .produk-container,
+.produk-section .produk-grid,
+.produk-section #produkList { /* Jaga-jaga nama wadah grid utama lu */
+  display: grid !important;
+  grid-template-columns: repeat(5, 1fr) !important;
+  gap: 18px !important;
+}
+
+/* Foto tegak sudut membulat */
+.produk-card.preloved-style .produk-image {
+  position: relative;
+  width: 100% !important;
+  height: 245px !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+  margin-bottom: 10px !important;
+  background-color: #f3f4f6;
+}
+
+.produk-card.preloved-style .produk-image img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  transition: transform 0.3s ease;
+}
+
+.produk-card.preloved-style:hover .produk-image img {
+  transform: scale(1.04);
+}
+
+/* Badge Bisa Nego halus */
+.produk-card.preloved-style .badge-nego {
+  top: 10px !important;
+  left: 10px !important;
+  background-color: rgba(34, 197, 94, 0.92) !important;
+  font-size: 11px !important;
+  padding: 4px 10px !important;
+  border-radius: 20px !important;
+  z-index: 2;
+}
+
+/* Teks 3 baris bersih */
+.produk-card.preloved-style .judul-link {
+  text-decoration: none;
+}
+
+.produk-card.preloved-style .produk-info h3 {
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  color: #222222 !important;
+  margin: 0 0 3px 0 !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.produk-card.preloved-style .meta-produk {
+  font-size: 12px !important;
+  color: #777777 !important;
+  margin: 0 0 4px 0 !important;
+}
+
+.produk-card.preloved-style .harga {
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  color: #111111 !important;
+  margin: 0 0 8px 0 !important;
+}
+
+/* === RESPONSIF HP === */
+@media (max-width: 600px) {
+  .katalog-slider .produk-card.preloved-style {
+    width: 155px !important;
+    min-width: 155px !important;
+    max-width: 155px !important;
+  }
+
+  .produk-section .produk-container,
+  .produk-section .produk-grid,
+  .produk-section #produkList {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+
+  .produk-card.preloved-style .produk-image {
+    height: 190px !important;
+  }
+}
+
+/* === PEMBEDA KHUSUS SLIDER REKOMENDASI (KOTAK PERSEGI + KARTU PUTIH) === */
+.katalog-slider .produk-card.preloved-style {
+  width: 185px !important;
+  min-width: 185px !important;
+  max-width: 185px !important;
+  background-color: #ffffff !important;     /* Kasih latar putih biar beda sama bawah */
+  border: 1.5px solid #f8c2d4 !important;   /* Bingkai pink tipis elegan */
+  border-radius: 14px !important;
+  padding: 10px !important;
+  box-shadow: 0 4px 12px rgba(232, 67, 147, 0.08) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.katalog-slider .produk-card.preloved-style:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 18px rgba(232, 67, 147, 0.15) !important;
+}
+
+/* Foto di slider jadi KOTAK 1:1 (lebih pendek & ringkas dari katalog utama) */
+.katalog-slider .produk-card.preloved-style .produk-image {
+  height: 165px !important; /* Persegi 1:1 pas sama lebar dalamnya */
+  border-radius: 10px !important;
+  margin-bottom: 8px !important;
+}
+
+/* Penyesuaian di HP biar slider tetap kotak ringkas */
+@media (max-width: 600px) {
+  .katalog-slider .produk-card.preloved-style {
+    width: 150px !important;
+    min-width: 150px !important;
+    max-width: 150px !important;
+    padding: 8px !important;
+  }
+
+  .katalog-slider .produk-card.preloved-style .produk-image {
+    height: 132px !important;
+  }
+}
+

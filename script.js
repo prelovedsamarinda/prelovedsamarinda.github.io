@@ -173,15 +173,32 @@ let keranjang = JSON.parse(localStorage.getItem('data_keranjang')) || [];
 updateTampilanKeranjang();
 
 // FUNGSI UTAMA: Menambahkan produk saat tombol keranjang di HTML diklik
-function tambahKeKeranjang(namaProduk, hargaProduk, latPenjual, lonPenjual, tombol) {
 
-  const sudahAda = keranjang.some(item => item.nama === namaProduk);
+// FUNGSI TAMBAHAN: Untuk menghapus barang (karena di fungsi updateTampilanKeranjang Anda memanggil fungsi ini)
+
+document.addEventListener('DOMContentLoaded', function () {
+    // 1. Otomatis kasih ID unik ke setiap kartu produk
+    const semuaCard = document.querySelectorAll('.produk-card');
+    semuaCard.forEach((card, index) => {
+        card.setAttribute('data-id', 'produk-' + index);
+    });
+
+    // 2. Render tampilan keranjang & sinkronkan centang saat halaman baru dibuka
+    updateTampilanKeranjang();
+    sinkronkanKartuProduk();
+});
+
+function tambahKeKeranjang(namaProduk, hargaProduk, latPenjual, lonPenjual, tombol) {
+    const card = tombol ? tombol.closest('.produk-card') : null;
+    const idProduk = card ? card.getAttribute('data-id') : namaProduk + '-' + Date.now();
+
+    const sudahAda = keranjang.some(item => item.id === idProduk);
     if (sudahAda) {
-        return; // Hentikan biar nggak masuk dua kali
+        return;
     }
 
-    // Masukkan data produk baru ke dalam array
     keranjang.push({
+        id: idProduk,
         nama: namaProduk,
         harga: hargaProduk,
         lat: latPenjual,
@@ -190,142 +207,27 @@ function tambahKeKeranjang(namaProduk, hargaProduk, latPenjual, lonPenjual, tomb
 
     localStorage.setItem('data_keranjang', JSON.stringify(keranjang));
 
-    // Panggil fungsi milik Anda untuk memperbarui tampilan UI & Notifikasi
     updateTampilanKeranjang();
-
-    if (tombol) {
-        const card = tombol.closest('.produk-card');
-        if (card) {
-            card.classList.add('sudah-diklaim');
-        }
-        tombol.disabled = true;
-        tombol.innerHTML = '✓'; // Ubah ikon keranjang jadi centang
-    }
-
-
-    // Feedback visual sederhana agar pembeli tahu produk berhasil masuk
-    // alert(`Berhasil menambahkan ${namaProduk} ke keranjang!`);
+    sinkronkanKartuProduk();
 }
 
-// FUNGSI TAMBAHAN: Untuk menghapus barang (karena di fungsi updateTampilanKeranjang Anda memanggil fungsi ini)
 function hapusDariKeranjang(index) {
-    // Hapus 1 item berdasarkan index-nya
     keranjang.splice(index, 1);
-
     localStorage.setItem('data_keranjang', JSON.stringify(keranjang));
     
-    // Perbarui kembali tampilannya
     updateTampilanKeranjang();
+    sinkronkanKartuProduk();
 }
-
-
-
-function updateTampilanKeranjang() {
-    const daftarKeranjang = document.getElementById('daftar-keranjang');
-    const totalHargaHTML = document.getElementById('total-harga');
-    const jumlahNotif = document.getElementById('jumlah-notif'); // Mengambil element notif navbar
-    
-    if (!daftarKeranjang || !totalHargaHTML || !jumlahNotif) return;
-    
-    daftarKeranjang.innerHTML = '';
-    
-    // Perbarui jumlah angka di navbar
-    if (keranjang.length === 0) {
-        daftarKeranjang.innerHTML = '<li class="keranjang-kosong">Keranjang masih kosong. Silakan pilih produk!</li>';
-        totalHargaHTML.innerText = '0';
-        jumlahNotif.style.display = 'none'; // Sembunyikan angka merah kalau kosong
-        jumlahNotif.innerText = '0';
-        return;
-    }
-    
-    let total = 0;
-    
-    keranjang.forEach((item, index) => {
-        const li = document.createElement('li');
-        li.innerHTML = `${item.nama} - Rp ${item.harga.toLocaleString('id-ID')} <button onclick="hapusDariKeranjang(${index})" class="btn-hapus">Hapus</button>`;
-        daftarKeranjang.appendChild(li);
-        total += item.harga;
-    });
-    
-    totalHargaHTML.innerText = total.toLocaleString('id-ID');
-    
-    // Tampilkan jumlah item di navbar
-    jumlahNotif.innerText = keranjang.length;
-    jumlahNotif.style.display = 'block'; // Munculkan bulatan merah
-     sinkronkanKartuProduk();
-}
-
-// FUNGSI BARU: Membantu geser otomatis ke area checkout saat ikon navbar di-klik
-function pindahKeKeranjang(event) {
-    event.preventDefault();
-    const target = document.querySelector('.keranjang-section');
-    if (target) {
-        target.scrollIntoView({ behavior: 'smooth' }); // Efek geser halus/smooth
-    }
-}
-
-  
-// ==========================================
-// LOGIKA PENGALIHAN HALAMAN PEMBAYARAN QRIS
-const btnLanjut = document.getElementById("pay-button");
-const elemenTotal = document.getElementById("total-harga");
-const elemenAlamat = document.getElementById("alamat"); 
-
-btnLanjut.addEventListener("click", function () {
-  // Ubah teks seperti "50.000" menjadi angka murni "50000"
-  const totalMurni = elemenTotal.innerText.replace(/[^0-9]/g, "");
-  const alamatPembeli = elemenAlamat ? elemenAlamat.value.trim() : "";
-
-  // Simpan ke memori browser
-  localStorage.setItem("totalBelanja", totalMurni);
-  localStorage.setItem("alamatPembeli", alamatPembeli);
-
-  // Pindah ke halaman kedua
-  window.location.href = "bayar.html";
-});
-
-// Jalankan otomatis setiap kali halaman dibuka atau di-reload
-document.addEventListener('DOMContentLoaded', function () {
-    // Pastikan ambil data terbaru dari localStorage
-    const dataTersimpan = JSON.parse(localStorage.getItem('data_keranjang')) || [];
-    const semuaCard = document.querySelectorAll('.produk-card');
-
-    semuaCard.forEach(card => {
-        const elemenJudul = card.querySelector('h3');
-        if (!elemenJudul) return;
-
-        const namaProdukDiCard = elemenJudul.innerText.trim();
-
-        // Cek apakah nama produk di card ini ada di dalam data keranjang
-        const sudahMasuk = dataTersimpan.some(item => item.nama.trim() === namaProdukDiCard);
-
-        if (sudahMasuk) {
-            // 1. Munculin lagi label "Di Keranjang" & redupin fotonya
-            card.classList.add('sudah-diklaim');
-
-            // 2. Ubah lagi tombol keranjang jadi tanda centang & matikan kliknya
-            const tombol = card.querySelector('.btn-keranjang');
-            if (tombol) {
-                tombol.disabled = true;
-                tombol.innerHTML = '✓';
-            }
-        }
-         sinkronkanKartuProduk();
-    });
-});
 
 function sinkronkanKartuProduk() {
     const semuaCard = document.querySelectorAll('.produk-card');
 
     semuaCard.forEach(card => {
-        const tombol = card.querySelector('.btn-keranjang');
+        const tombol = card.querySelector('.btn-keranjang-float');
         if (!tombol) return;
 
-        // Ambil teks atribut onclick dari tombol (contoh: "tambahKeKeranjang('Cardigan', ...)")
-        const atributOnclick = tombol.getAttribute('onclick') || '';
-
-        // Cek apakah salah satu nama produk di array keranjang ada di dalam onclick tombol ini
-        const masihDiKeranjang = keranjang.some(item => atributOnclick.includes(`'${item.nama}'`));
+        const idCard = card.getAttribute('data-id');
+        const masihDiKeranjang = keranjang.some(item => item.id === idCard);
 
         if (masihDiKeranjang) {
             card.classList.add('sudah-diklaim');
@@ -343,11 +245,70 @@ function sinkronkanKartuProduk() {
     }
 }
 
+function updateTampilanKeranjang() {
+    const daftarKeranjang = document.getElementById('daftar-keranjang');
+    const totalHargaHTML = document.getElementById('total-harga');
+    const jumlahNotif = document.getElementById('jumlah-notif');
+    
+    if (!daftarKeranjang || !totalHargaHTML || !jumlahNotif) return;
+    
+    daftarKeranjang.innerHTML = '';
+    
+    if (keranjang.length === 0) {
+        daftarKeranjang.innerHTML = '<li class="keranjang-kosong">Keranjang masih kosong. Silakan pilih produk!</li>';
+        totalHargaHTML.innerText = '0';
+        jumlahNotif.style.display = 'none';
+        jumlahNotif.innerText = '0';
+        return;
+    }
+    
+    let total = 0;
+    
+    keranjang.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `${item.nama} - Rp ${item.harga.toLocaleString('id-ID')} <button onclick="hapusDariKeranjang(${index})" class="btn-hapus">Hapus</button>`;
+        daftarKeranjang.appendChild(li);
+        total += item.harga;
+    });
+    
+    totalHargaHTML.innerText = total.toLocaleString('id-ID');
+    jumlahNotif.innerText = keranjang.length;
+    jumlahNotif.style.display = 'block';
+}
+
+function pindahKeKeranjang(event) {
+    event.preventDefault();
+    const target = document.querySelector('.keranjang-section');
+    if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+// ==========================================
+// LOGIKA PENGALIHAN HALAMAN PEMBAYARAN QRIS (Dikasih pengaman if biar gak crash)
+const btnLanjut = document.getElementById("pay-button");
+const elemenTotal = document.getElementById("total-harga");
+const elemenAlamat = document.getElementById("alamat"); 
+
+if (btnLanjut && elemenTotal) {
+    btnLanjut.addEventListener("click", function () {
+        const totalMurni = elemenTotal.innerText.replace(/[^0-9]/g, "");
+        const alamatPembeli = elemenAlamat ? elemenAlamat.value.trim() : "";
+
+        localStorage.setItem("totalBelanja", totalMurni);
+        localStorage.setItem("alamatPembeli", alamatPembeli);
+
+        window.location.href = "bayar.html";
+    });
+}
+
 function geserKatalog(arah) {
-  const slider = document.getElementById('katalogSlider');
-  const jarakGeser = 260; // Lebar kartu + gap
-  slider.scrollBy({
-    left: arah * jarakGeser,
-    behavior: 'smooth'
-  });
+    const slider = document.getElementById('katalogSlider');
+    if (slider) {
+        const jarakGeser = 260;
+        slider.scrollBy({
+            left: arah * jarakGeser,
+            behavior: 'smooth'
+        });
+    }
 }

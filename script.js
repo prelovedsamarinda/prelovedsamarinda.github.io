@@ -177,17 +177,56 @@ updateTampilanKeranjang();
 // FUNGSI TAMBAHAN: Untuk menghapus barang (karena di fungsi updateTampilanKeranjang Anda memanggil fungsi ini)
 
 document.addEventListener('DOMContentLoaded', function () {
-    // 1. Otomatis kasih ID unik ke setiap kartu produk
     const semuaCard = document.querySelectorAll('.produk-card');
+
     semuaCard.forEach((card, index) => {
-        card.setAttribute('data-id', 'produk-' + index);
+        // 1. Otomatis kasih ID unik ke setiap kartu produk
+        const idUnik = 'produk-' + index;
+        card.setAttribute('data-id', idUnik);
+
+        // 2. Bikin foto di kartu bisa diklik buat pindah ke halaman detail.html
+        const gambar = card.querySelector('img');
+        if (gambar) {
+            gambar.style.cursor = 'pointer';
+            gambar.addEventListener('click', function () {
+                const nama = card.querySelector('h3')?.innerText.trim() || 'Produk Preloved';
+                const hargaTeks = card.querySelector('.harga')?.innerText || '75000';
+                const hargaAngka = parseInt(hargaTeks.replace(/[^0-9]/g, '')) || 75000;
+
+                // Gabungkan foto utama + foto tambahan dari atribut data-foto-lain
+                let semuaFoto = [gambar.src];
+                const fotoTambahan = card.getAttribute('data-foto-lain');
+                if (fotoTambahan) {
+                    const listFoto = fotoTambahan.split(',').map(item => item.trim());
+                    semuaFoto = semuaFoto.concat(listFoto);
+                }
+
+                // Simpan data produk yang diklik ke localStorage
+                const detailData = {
+                    id: idUnik,
+                    nama: nama,
+                    harga: hargaAngka,
+                    ukuran: card.getAttribute('data-ukuran') || "All Size (Cek Admin)",
+                    kondisi: "9.5/10 (Like New)",
+                    brand: card.getAttribute('data-brand') || "Preloved Pilihan",
+                    bahan: card.getAttribute('data-bahan') || "Katun Adem",
+                    deskripsi: card.getAttribute('data-deskripsi') || "Kondisi mulus terawat, no minus, sudah dicuci bersih & wangi.",
+                    foto: semuaFoto,
+                    lat: -0.4794345893937245,
+                    lon: 117.15853327078588
+                };
+
+                localStorage.setItem('produk_detail_aktif', JSON.stringify(detailData));
+                window.location.href = 'detail.html';
+            });
+        }
     });
 
-    // 2. Render tampilan keranjang & sinkronkan centang saat halaman baru dibuka
+    // 3. Render tampilan keranjang & sinkronkan centang saat halaman baru dibuka
     updateTampilanKeranjang();
     sinkronkanKartuProduk();
 });
-
+ 
 function tambahKeKeranjang(namaProduk, hargaProduk, latPenjual, lonPenjual, tombol) {
     const card = tombol ? tombol.closest('.produk-card') : null;
     const idProduk = card ? card.getAttribute('data-id') : namaProduk + '-' + Date.now();
@@ -311,4 +350,70 @@ function geserKatalog(arah) {
             behavior: 'smooth'
         });
     }
+}
+
+// Baca ulang data keranjang terbaru dari localStorage setiap kali halaman index tampil kembali
+window.addEventListener('pageshow', function () {
+    keranjang = JSON.parse(localStorage.getItem('data_keranjang')) || [];
+    updateTampilanKeranjang();
+    sinkronkanKartuProduk();
+});
+
+// ==========================================
+// LOGIKA TITIK INDIKATOR (PAGINATION DOTS) SLIDER KATALOG
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+  // Kasih jeda dikit (100ms) biar gambar & CSS selesai ngatur lebar layar dulu
+  setTimeout(buatTitikKatalog, 100);
+});
+
+let timerResize;
+window.addEventListener('resize', () => {
+  clearTimeout(timerResize);
+  timerResize = setTimeout(buatTitikKatalog, 250);
+});
+
+function buatTitikKatalog() {
+  const wadahDots = document.getElementById('katalog-dots');
+  if (!wadahDots) return;
+
+  // Otomatis cari wadah slider tepat di atas #katalog-dots (apa pun nama ID-nya!)
+  const slider = wadahDots.previousElementSibling;
+  if (!slider) return;
+
+  wadahDots.innerHTML = '';
+
+  // Cek apakah slider bisa digeser ke samping
+  const maxScroll = slider.scrollWidth - slider.clientWidth;
+  if (maxScroll <= 5) return;
+
+  const jumlahHalaman = Math.ceil(slider.scrollWidth / slider.clientWidth);
+
+  for (let i = 0; i < jumlahHalaman; i++) {
+    const dot = document.createElement('button');
+    dot.type = 'button';
+    dot.className = 'dot-item' + (i === 0 ? ' active' : '');
+
+    dot.addEventListener('click', () => {
+      slider.scrollTo({
+        left: i * slider.clientWidth,
+        behavior: 'smooth'
+      });
+    });
+
+    wadahDots.appendChild(dot);
+  }
+
+  // Update titik aktif saat digeser
+  slider.onscroll = () => {
+    const dots = wadahDots.querySelectorAll('.dot-item');
+    if (dots.length === 0) return;
+
+    const rasio = slider.scrollLeft / (slider.scrollWidth - slider.clientWidth);
+    const indexAktif = Math.round(rasio * (dots.length - 1));
+
+    dots.forEach((d, idx) => {
+      d.classList.toggle('active', idx === indexAktif);
+    });
+  };
 }

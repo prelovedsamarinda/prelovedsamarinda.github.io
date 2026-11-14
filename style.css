@@ -465,23 +465,19 @@ body {
   /* mix-blend-mode: difference udah dihapus biar teks gak kamuflase */
 }
 
-.hero .konten .cta {
-  margin-top: 1.5rem;
-  display: inline-block;
-  padding: 0.9rem 2.4rem;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: white;
-  background-color: rgb(232, 121, 158);
-  border-radius: 50px; /* Sudut membulat modern */
-  box-shadow: 0 4px 15px rgba(232, 121, 158, 0.45);
-  transition: transform 0.2s ease, background-color 0.2s ease;
-}
-
-.hero .konten .cta:hover {
+.hero-buttons .cta:hover {
   background-color: rgb(255, 17, 96);
+  border-color: rgb(255, 17, 96);
   transform: translateY(-2px);
 }
+
+.hero-buttons .cta-secondary:hover {
+  background-color: white;
+  border-color: white;
+  color: rgb(255, 17, 96);
+  transform: translateY(-2px);
+}
+
 
 /* Penyesuaian khusus layar HP */
 @media (max-width: 576px) {
@@ -503,12 +499,6 @@ body {
     font-size: 0.88rem;
     margin-top: 0.5rem;
     line-height: 1.35;
-  }
-
-  .hero .konten .cta {
-    margin-top: 0.9rem;
-    padding: 0.6rem 1.5rem;
-    font-size: 0.88rem;
   }
 }
 
@@ -767,17 +757,6 @@ body {
 
 }
 
-/* KECILKAN LOGO DI HP */
-/* 
- .navbar-extra a,
- .navbar-extra a svg {
-  display: inline-block !important;
-  vertical-align: middle !important; /* Memaksa SVG bawaan Feather Icons rata tengah dengan teks/ikon lain */
-/* height: 24px !important; /* Kunci tinggi ikon agar seragam */
-/* width: 24px !important; Kunci lebar ikon agar seragam */
-/* line-height: 1 !important; */
-*/
-/* } */
 
 /* section */
 
@@ -1092,19 +1071,7 @@ body {
   color: #777777;
 }
 
- .badge-keranjang {
-  display: none; /* Sembunyi sebelum diklik */
-  position: absolute;
-  top: 10px;
-  right: 10px; /* Taruh di kanan biar nggak tabrakan sama badge-nego */
-  background-color: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  padding: 5px 10px;
-  font-size: 12px;
-  font-weight: 600;
-  border-radius: 5px;
-  z-index: 2;
-}
+ 
 
 /* Munculkan badge "Di Keranjang" saat card diklik */
 .produk-card.sudah-diklaim .badge-keranjang {
@@ -1512,3 +1479,74 @@ body {
   }
 }
 
+
+.katalog-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  margin-bottom: 10px;
+}
+
+.dot-item {
+  width: 8px;
+  height: 8px;
+  border-radius: 50px;
+  background-color: #f3c6d3;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dot-item.active {
+  width: 22px;
+  background-color: rgb(255, 17, 96);
+}
+
+/* Tambahan style kalau mau pakai 2 tombol sejajar */
+.hero-buttons {
+  display: flex;
+  align-items: center; /* Paksa tinggi kedua tombol sejajar rata */
+  gap: 12px;
+  margin-top: 1.4rem;
+  flex-wrap: wrap;
+}
+
+.hero-buttons .cta,
+.hero-buttons .cta-secondary {
+  margin-top: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.8rem; /* Ukuran tinggi & lebar sama persis */
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.2;
+  border-radius: 50px;
+  text-decoration: none;
+  box-sizing: border-box;
+  transition: 0.2s ease;
+}
+
+.hero-buttons .cta {
+  color: white;
+  background-color: rgb(232, 121, 158);
+  border: 1.5px solid rgb(232, 121, 158); /* Tebal border disamain biar tinggi identik */
+}
+
+.hero-buttons .cta-secondary {
+  color: white;
+  background-color:  rgba(0, 0, 0, 0.25);
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+}
+
+/* Penyesuaian khusus layar HP biar muat sejajar & ramping */
+@media (max-width: 576px) {
+  .hero-buttons .cta,
+  .hero-buttons .cta-secondary {
+    padding: 0.6rem 1.3rem;
+    font-size: 0.85rem;
+  }
+}

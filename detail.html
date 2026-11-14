@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detail Produk - Preloved Samarinda</title>
+  <!-- Menyambungkan ke file CSS terpisah -->
+  <script src="https://unpkg.com/feather-icons"></script>
+  <link rel="stylesheet" href="detail.css" />
+  
+</head>
+<body>
+
+  <!-- Header Navigasi -->
+ 
+ <header class="top-bar">
+    <a href="index.html" class="btn-back">← Kembali ke Katalog</a>
+
+    <div class="shopping-cart-container">
+      <button
+        type="button"
+        id="shopping-cart"
+        onclick="toggleKeranjang()"
+        class="button-icon-cart"
+      >
+        <i class="cart-button" data-feather="shopping-cart"></i>
+        <span id="jumlah-notif" class="badge-notif">0</span>
+      </button>
+
+      <!-- DAFTAR BELANJAAN MELAYANG -->
+      <div id="shopping-cart-box" class="shopping-cart-box">
+        <h3>Keranjang Belanja</h3>
+        <ul id="daftar-keranjang">
+          <li class="keranjang-kosong">Keranjang masih kosong.</li>
+        </ul>
+        <div class="cart-total">
+          Total: Rp <span id="total-harga">0</span>
+        </div>
+        <a
+          href="bayar.html"
+          type="button"
+          id="pay-button"
+          class="btn-checkout1"
+          >Bayar</a
+        >
+      </div>
+    </div>
+  </header>
+
+  <!-- Konten Utama -->
+  <main class="container">
+    <!-- Kiri: Galeri Foto -->
+    <div class="gallery-box">
+      <img id="foto-utama" src="" alt="Foto Produk" class="main-image" />
+      <div id="daftar-thumbnail" class="thumb-list"></div>
+    </div>
+
+    <!-- Kanan: Info Detail Produk -->
+    <div class="info-box">
+      <div class="badges">
+        <span class="badge badge-ready">Ready Stock (1 pcs)</span>
+        <span class="badge badge-clean">Sudah Dicuci & Wangi</span>
+      </div>
+
+      <h1 id="judul-produk" class="product-title">Memuat Produk...</h1>
+
+      <div class="price-row">
+        <span id="harga-produk" class="product-price">Rp 0</span>
+        <span class="nego-tag">Bisa Nego</span>
+      </div>
+
+      <!-- Kotak Spesifikasi 2 Kolom -->
+      <div class="spec-grid">
+        <div class="spec-item">
+          <span>Ukuran</span>
+          <strong id="spek-ukuran">-</strong>
+        </div>
+        <div class="spec-item">
+          <span>Kondisi</span>
+          <strong id="spek-kondisi">-</strong>
+        </div>
+        <div class="spec-item">
+          <span>Brand</span>
+          <strong id="spek-brand">-</strong>
+        </div>
+        <div class="spec-item">
+          <span>Bahan</span>
+          <strong id="spek-bahan">-</strong>
+        </div>
+      </div>
+
+      <!-- Deskripsi & Minus -->
+      <div class="desc-section">
+        <h3>Detail & Kondisi Barang</h3>
+        <p id="deskripsi-produk">-</p>
+      </div>
+
+      <!-- Info Pengiriman Samarinda -->
+      <div class="shipping-note">
+        <strong>📍 Pengiriman dari Samarinda</strong><br />
+        Melayani COD area Samarinda, kurir instan (Maxim/GoSend), dan pengiriman reguler ke seluruh Indonesia.
+      </div>
+    </div>
+  </main>
+
+  <!-- Tombol Aksi Bawah -->
+  <div class="action-bar">
+    <a id="link-nego-wa" href="#" target="_blank" class="btn-nego-wa">Nego via WA</a>
+    <button id="btn-beli-detail" class="btn-add-cart">+ Keranjang</button>
+  </div>
+
+  <!-- Menyambungkan ke file JavaScript terpisah (taruh paling bawah sebelum tutup body) -->
+   <script src="https://unpkg.com"></script>
+   <script src="detail.js"></script>
+</body>
+</html>

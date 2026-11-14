@@ -1,0 +1,256 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #fff6f9;
+  color: #2d2d2d;
+  line-height: 1.6;
+}
+
+/* Header Navigasi */
+.top-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  padding: 14px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.btn-back {
+  text-decoration: none;
+  color: #333;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.brand-mini {
+  font-weight: 700;
+  color: rgb(255, 17, 96);
+  font-size: 0.95rem;
+}
+
+/* Hero Atas */
+.kontak-hero {
+  text-align: center;
+  padding: 40px 20px 30px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.badge-top {
+  display: inline-block;
+  background: #fce7f3;
+  color: #be185d;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 5px 14px;
+  border-radius: 50px;
+  margin-bottom: 12px;
+}
+
+.kontak-hero h1 {
+  font-size: 2rem;
+  color: #1f2937;
+  line-height: 1.25;
+  margin-bottom: 12px;
+}
+
+.kontak-hero p {
+  color: #4b5563;
+  font-size: 1rem;
+}
+
+/* Container Utama */
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 16px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Grid 3 Kartu Kontak */
+.kontak-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.kontak-card {
+  background: white;
+  padding: 24px 20px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  border: 1.5px solid transparent;
+}
+
+.kontak-card.highlight {
+  border-color: #fbcfe8;
+  background: #fff9fb;
+}
+
+.icon-circle {
+  width: 52px;
+  height: 52px;
+  background: #fce7f3;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+}
+
+.kontak-card h3 {
+  font-size: 1.15rem;
+  color: #1f2937;
+  margin-bottom: 6px;
+}
+
+.kontak-sub {
+  font-size: 0.88rem;
+  color: #6b7280;
+  margin-bottom: 18px;
+}
+
+.btn-kontak {
+  display: inline-block;
+  width: 100%;
+  padding: 10px 16px;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.btn-kontak.pink {
+  background: rgb(232, 121, 158);
+  color: white;
+}
+
+.btn-kontak.pink:hover {
+  background: rgb(255, 17, 96);
+}
+
+.btn-kontak.outline {
+  background: white;
+  color: rgb(255, 17, 96);
+  border: 1.5px solid rgb(232, 121, 158);
+}
+
+.btn-kontak.outline:hover {
+  background: #fff1f5;
+}
+
+/* Section Box Umum */
+.section-box {
+  background: white;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
+.section-box h2 {
+  font-size: 1.3rem;
+  color: #1f2937;
+  margin-bottom: 14px;
+}
+
+.info-dua-kolom {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.info-item h3 {
+  font-size: 1.08rem;
+  color: #1f2937;
+  margin-bottom: 6px;
+}
+
+.info-item p {
+  font-size: 0.92rem;
+  color: #374151;
+}
+
+.note-kecil {
+  font-size: 0.85rem !important;
+  color: #6b7280 !important;
+  margin-top: 4px;
+}
+
+/* FAQ */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.faq-item {
+  background: #fff9fb;
+  border-left: 4px solid rgb(232, 121, 158);
+  padding: 12px 16px;
+  border-radius: 8px;
+}
+
+.faq-item strong {
+  display: block;
+  font-size: 0.95rem;
+  color: #1f2937;
+  margin-bottom: 3px;
+}
+
+.faq-item p {
+  font-size: 0.88rem;
+  color: #4b5563;
+}
+
+.footer-mini {
+  text-align: center;
+  padding: 20px;
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+/* Responsif Layar HP */
+@media (max-width: 768px) {
+  .kontak-hero h1 {
+    font-size: 1.55rem;
+  }
+  .kontak-grid,
+  .info-dua-kolom {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Warna khas masing-masing ikon */
+.wa-icon {
+  background: #dcfce7;
+  color: #16a34a; /* Hijau WhatsApp */
+}
+
+.ig-icon {
+  background: #fce7f3;
+  color: #e1306c; /* Pink-Merah Instagram */
+}
+
+.email-icon {
+  background: #ffe4e6;
+  color: rgb(255, 17, 96); /* Pink tema web */
+}

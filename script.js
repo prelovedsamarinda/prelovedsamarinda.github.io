@@ -186,40 +186,48 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // 2. Bikin foto di kartu bisa diklik buat pindah ke halaman detail.html
         const gambar = card.querySelector('img');
-        if (gambar) {
-            gambar.style.cursor = 'pointer';
-            gambar.addEventListener('click', function () {
-                const nama = card.querySelector('h3')?.innerText.trim() || 'Produk Preloved';
-                const hargaTeks = card.querySelector('.harga')?.innerText || '75000';
-                const hargaAngka = parseInt(hargaTeks.replace(/[^0-9]/g, '')) || 75000;
+if (gambar) {
+    gambar.style.cursor = 'pointer';
+    gambar.addEventListener('click', function () {
+        const nama = card.querySelector('h3')?.innerText.trim() || 'Produk Preloved';
+        
+        // 1. Ambil harga utama (depan) & harga coret (jika ada) secara terpisah
+        const teksHargaUtama = card.querySelector('.harga')?.childNodes[0]?.nodeValue || '75000';
+        const hargaAngka = parseInt(teksHargaUtama.replace(/[^0-9]/g, '')) || 75000;
 
-                // Gabungkan foto utama + foto tambahan dari atribut data-foto-lain
-                let semuaFoto = [gambar.src];
-                const fotoTambahan = card.getAttribute('data-foto-lain');
-                if (fotoTambahan) {
-                    const listFoto = fotoTambahan.split(',').map(item => item.trim());
-                    semuaFoto = semuaFoto.concat(listFoto);
-                }
+        const teksHargaCoret = card.querySelector('.harga-coret')?.innerText || '';
+        const hargaCoretAngka = parseInt(teksHargaCoret.replace(/[^0-9]/g, '')) || 0;
 
-                // Simpan data produk yang diklik ke localStorage
-                const detailData = {
-                    id: idUnik,
-                    nama: nama,
-                    harga: hargaAngka,
-                    ukuran: card.getAttribute('data-ukuran') || "All Size (Cek Admin)",
-                    kondisi: "9.5/10 (Like New)",
-                    brand: card.getAttribute('data-brand') || "Preloved Pilihan",
-                    bahan: card.getAttribute('data-bahan') || "Katun Adem",
-                    deskripsi: card.getAttribute('data-deskripsi') || "Kondisi mulus terawat, no minus, sudah dicuci bersih & wangi.",
-                    foto: semuaFoto,
-                    lat: -0.4794345893937245,
-                    lon: 117.15853327078588
-                };
-
-                localStorage.setItem('produk_detail_aktif', JSON.stringify(detailData));
-                window.location.href = 'detail.html';
-            });
+        // 2. Gabungkan foto utama + foto tambahan dari atribut data-foto-lain
+        let semuaFoto = [gambar.src];
+        const fotoTambahan = card.getAttribute('data-foto-lain');
+        if (fotoTambahan) {
+            const listFoto = fotoTambahan.split(',').map(item => item.trim());
+            semuaFoto = semuaFoto.concat(listFoto);
         }
+
+        // 3. Simpan data produk (termasuk hargaCoret) ke localStorage
+        const detailData = {
+            id: idUnik,
+            nama: nama,
+            harga: hargaAngka,
+            hargaCoret: hargaCoretAngka,
+            ukuran: card.getAttribute('data-ukuran') || "All Size (Cek Admin)",
+            kondisi: card.getAttribute('data-kondisi') || "9.5/10 (Like New)",
+            brand: card.getAttribute('data-brand') || "Preloved Pilihan",
+            bahan: card.getAttribute('data-bahan') || "Katun Adem",
+            deskripsi: card.getAttribute('data-deskripsi') || "Kondisi mulus terawat, no minus, sudah dicuci bersih & wangi.",
+            foto: semuaFoto,
+            lat: -0.4794345893937245,
+            lon: 117.15853327078588
+        };
+
+        localStorage.setItem('produk_detail_aktif', JSON.stringify(detailData));
+        window.location.href = 'detail.html';
+    });
+}
+
+        
     });
 
     // 3. Render tampilan keranjang & sinkronkan centang saat halaman baru dibuka
@@ -417,3 +425,39 @@ function buatTitikKatalog() {
     });
   };
 }
+
+// ==========================================
+// OTOMATISASI TOMBOL NEGO KE WHATSAPP ADMIN
+// ==========================================
+document.addEventListener('DOMContentLoaded', function () {
+  // Ganti nomor WhatsApp admin toko kamu di sini (format 628...)
+  const NOMOR_WA_TOKO = '6282156407042';
+
+  const semuaTombolNego = document.querySelectorAll('.btn-nego-clean');
+
+  semuaTombolNego.forEach((tombol) => {
+    tombol.addEventListener('click', function (e) {
+      e.preventDefault(); // Mencegah membuka link https://whatsapp.com kosong
+
+      // Cari kartu produk tempat tombol Nego ini berada
+      const card = tombol.closest('.produk-card');
+      if (!card) return;
+
+      // Ambil nama, ukuran, dan harga utama dari kartu tersebut
+      const namaProduk = card.querySelector('h3')?.innerText.trim() || 'Produk Preloved';
+      const metaProduk = card.querySelector('.meta-produk')?.innerText.trim() || '';
+      const hargaUtama = card.querySelector('.harga')?.childNodes[0]?.nodeValue?.trim() || 'Rp 75.000';
+
+      // Susun template chat WhatsApp yang sopan & jelas
+      const pesan = `Halo Admin Preloved Samarinda! Saya mau nego produk ini:\n\n• *Produk:* ${namaProduk}\n• *Detail:* ${metaProduk}\n• *Harga:* ${hargaUtama}\n\nBoleh nego jadi berapa kak?`;
+
+      // Buka WhatsApp dengan pesan yang sudah terisi otomatis
+     const urlWA = "https://wa.me/" + NOMOR_WA_TOKO + "?text=" + encodeURIComponent(pesan);
+      window.open(urlWA, '_blank');
+    });
+  });
+});
+
+const teksHargaUtama = card.querySelector('.harga')?.childNodes[0]?.nodeValue || '75000';
+const hargaAngka = parseInt(teksHargaUtama.replace(/[^0-9]/g, '')) || 75000;
+
